@@ -4,8 +4,7 @@ import uet.oop.bomberman.Board;
 import uet.oop.bomberman.Game;
 import uet.oop.bomberman.entities.LayeredEntity;
 import uet.oop.bomberman.entities.character.Bomber;
-import uet.oop.bomberman.entities.character.enemy.Balloon;
-import uet.oop.bomberman.entities.character.enemy.Oneal;
+import uet.oop.bomberman.entities.character.enemy.*;
 import uet.oop.bomberman.entities.tile.Grass;
 import uet.oop.bomberman.entities.tile.Portal;
 import uet.oop.bomberman.entities.tile.Wall;
@@ -96,6 +95,23 @@ public class FileLevelLoader extends LevelLoader {
 						_board.addCharacter( new Oneal(Coordinates.tileToPixel(xE2), Coordinates.tileToPixel(yE2) + Game.TILES_SIZE, _board));
 						_board.addEntity(xE2 + yE2 * _width, new Grass(xE2, yE2, Sprite.grass));
 						break;
+					case '3' :
+						int xE3= x, yE3 = y;
+						_board.addCharacter( new Doll(Coordinates.tileToPixel(xE3), Coordinates.tileToPixel(yE3) + Game.TILES_SIZE, _board));
+						_board.addEntity(xE3 + yE3 * _width, new Grass(xE3, yE3, Sprite.grass));
+						break;
+					case '4' :
+						int xE4= x, yE4 = y;
+						_board.addCharacter( new Kondoria(Coordinates.tileToPixel(xE4), Coordinates.tileToPixel(yE4) + Game.TILES_SIZE, _board));
+						_board.addEntity(xE4 + yE4 * _width, new Grass(xE4, yE4, Sprite.grass));
+						break;
+
+					case '5' :
+						int xE5= x, yE5 = y;
+						_board.addCharacter( new Minvo(Coordinates.tileToPixel(xE5), Coordinates.tileToPixel(yE5) + Game.TILES_SIZE, _board));
+						_board.addEntity(xE5 + yE5 * _width, new Grass(xE5, yE5, Sprite.grass));
+						break;
+
 					case '*' :
 						int xB = x, yB = y;
 						_board.addEntity(xB + yB * _width,

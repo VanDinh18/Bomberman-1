@@ -1,6 +1,9 @@
 package uet.oop.bomberman.entities.tile.destroyable;
 
 
+import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.bomb.Flame;
+import uet.oop.bomberman.entities.character.enemy.Kondoria;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.level.Coordinates;
@@ -29,5 +32,14 @@ public class Brick extends DestroyableTile {
 		else
 			screen.renderEntity( x, y, this);
 	}
-	
+
+	@Override
+	public boolean collide(Entity e) {
+		if (e instanceof Kondoria)
+			return true;
+		if (e instanceof Flame)
+			destroy();
+
+		return false;
+	}
 }
