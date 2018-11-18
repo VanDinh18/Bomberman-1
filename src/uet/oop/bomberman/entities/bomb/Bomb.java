@@ -1,5 +1,6 @@
 package uet.oop.bomberman.entities.bomb;
 
+import uet.oop.bomberman.Audio;
 import uet.oop.bomberman.Board;
 import uet.oop.bomberman.Game;
 import uet.oop.bomberman.entities.AnimatedEntitiy;
@@ -13,7 +14,7 @@ import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.level.Coordinates;
 
 public class Bomb extends AnimatedEntitiy {
-
+	Audio audio = new Audio("bomb.wav");
 	protected double _timeToExplode = 120; //2 seconds
 	public int _timeAfter = 20;
 	
@@ -91,6 +92,7 @@ public class Bomb extends AnimatedEntitiy {
 		for(int i=0;i<_flames.length;i++){
 			_flames[i] = new Flame((int) _x,(int) _y, i , Game.getBombRadius() ,_board );
 		}
+		audio.start();
 	}
 	
 	public FlameSegment flameAt(int x, int y) {

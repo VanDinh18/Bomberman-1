@@ -1,5 +1,6 @@
 package uet.oop.bomberman.level;
 
+import uet.oop.bomberman.Audio;
 import uet.oop.bomberman.Board;
 import uet.oop.bomberman.Game;
 import uet.oop.bomberman.entities.LayeredEntity;
@@ -66,7 +67,10 @@ public class FileLevelLoader extends LevelLoader {
         } catch (IOException e) {
             throw new LoadLevelException("Error loading level " + level, e);
         }
+
 		// TODO: cập nhật các giá trị đọc được vào _width, _height, _level, _map
+		Audio audio = new Audio("bomberman_orchestra.wav");
+		audio.start();
 	}
 
 	@Override

@@ -23,6 +23,10 @@ public class Bomber extends Character {
      * nếu giá trị này < 0 thì cho phép đặt đối tượng Bomb tiếp theo,
      * cứ mỗi lần đặt 1 Bomb mới, giá trị này sẽ được reset về 0 và giảm dần trong mỗi lần update()
      */
+
+    protected final double MAX_STEPS = Game.TILES_SIZE / Game.getBomberSpeed();
+    protected final double rest = (MAX_STEPS - (int) MAX_STEPS) / MAX_STEPS;
+    protected double _steps = 2*MAX_STEPS;
     protected int _timeBetweenPutBombs = 0;
 
     public Bomber(int x, int y, Board board) {
@@ -45,9 +49,11 @@ public class Bomber extends Character {
 
         animate();
 
-        calculateMove();
+//        calculateMove();
+//        detectPlaceBomb();
 
-        detectPlaceBomb();
+        AIcalculateMove();
+        AIdetectPlaceBomb();
     }
 
     @Override
@@ -66,7 +72,51 @@ public class Bomber extends Character {
         int xScroll = Screen.calculateXOffset(_board, this);
         Screen.setOffset(xScroll, 0);
     }
+    void AIdetectPlaceBomb() {
+        int x = Coordinates.pixelToTile(_x + _sprite.getSize()/2);
+        int y = Coordinates.pixelToTile(_y - _sprite.getSize()/2 );
+        if(!Game.getBoard().detectNoEnemies() && Game.getBombRate()>0 && _timeBetweenPutBombs < 0){
+            for(int i = 1 ; i < 3 ; i++){
+                Character character = Game.getBoard().getCharacterAtExcluding(this.getXTile()+i, this.getYTile(),this);
+                if(character!=null) {
+                    placeBomb(x, y);
+                    Game.addBombRate(-1);
+                    _timeBetweenPutBombs = 10;
+                }
+            }
+            for(int i = 1 ; i < 3 ; i++){
+                Character character = Game.getBoard().getCharacterAtExcluding(this.getXTile()-i, this.getYTile(),this);
+                if(character!=null) {
+                    placeBomb(x, y);
+                    Game.addBombRate(-1);
+                    _timeBetweenPutBombs = 10;
+                }
+            }
+            for(int i = 1 ; i < 3 ; i++){
+                Character character = Game.getBoard().getCharacterAtExcluding(this.getXTile(), this.getYTile()+i,this);
+                if(character!=null) {
+                    placeBomb(x, y);
+                    Game.addBombRate(-1);
+                    _timeBetweenPutBombs = 10;
+                }
+            }
+            for(int i = 1 ; i < 3 ; i++){
+                Character character = Game.getBoard().getCharacterAtExcluding(this.getXTile(), this.getYTile() -i,this);
+                if(character!=null) {
+                    placeBomb(x, y);
+                    Game.addBombRate(-1);
+                    _timeBetweenPutBombs = 10;
+                }
+            }
+        }
+        if(!_moving && Game.getBombRate()>0 && _timeBetweenPutBombs < 0){
 
+
+            placeBomb(x,y);
+            Game.addBombRate(-1);
+            _timeBetweenPutBombs = 10;
+        }
+    }
     /**
      * Kiểm tra xem có đặt được bom hay không? nếu có thì đặt bom tại vị trí hiện tại của Bomber
      */
@@ -120,7 +170,29 @@ public class Bomber extends Character {
             _board.endGame();
         }
     }
+    void AIcalculateMove(){
+        double xa = 0, ya = 0;
+        if(_steps <= 0){
+            _direction = BomberAI.calculateDirection(_board.getBombs(),_board.getBomber());
+            System.out.println(_direction);
+            _steps = 2*MAX_STEPS;
+        }
+        if(_direction == 0) ya--;
+        if(_direction == 2) ya++;
+        if(_direction == 3) xa--;
+        if(_direction == 1) xa++;
+        // TODO: sử dụng canMove() để kiểm tra xem có thể di chuyển tới điểm đã tính toán hay không
 
+        // TODO: sử dụng move() để di chuyển
+        if(canMove(xa, ya)) {
+            _steps -= 1 + rest;
+            move(xa * Game.getBomberSpeed(), ya * Game.getBomberSpeed());
+            _moving = true;
+        } else {
+            _steps = 0;
+            _moving = false;
+        }
+    }
     @Override
     protected void calculateMove() {
         // TODO: xử lý nhận tín hiệu điều khiển hướng đi từ _input và gọi move() để thực hiện di chuyển
