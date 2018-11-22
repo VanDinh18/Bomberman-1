@@ -6,6 +6,8 @@ import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.character.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
 
+import static uet.oop.bomberman.BombermanGame.complete;
+import static uet.oop.bomberman.BombermanGame.theme;
 
 
 public class Portal extends Tile {
@@ -17,7 +19,9 @@ public class Portal extends Tile {
 		// TODO: xử lý khi Bomber đi vào
 
 		if(e instanceof Bomber ){
-			if(Game.getBoard().detectNoEnemies()) {
+			if(!Game.getBoard().detectNoEnemies()) {
+				theme.suspend();
+				complete.start();
 				Game.getBoard().nextLevel();
 				return true;
 			}

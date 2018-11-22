@@ -21,6 +21,8 @@ import java.io.*;
 import java.net.URL;
 import java.util.StringTokenizer;
 
+import static uet.oop.bomberman.BombermanGame.theme;
+
 public class FileLevelLoader extends LevelLoader {
 
 	/**
@@ -36,7 +38,8 @@ public class FileLevelLoader extends LevelLoader {
 	@Override
 	public void loadLevel(int level) throws LoadLevelException {
 		// TODO: đọc dữ liệu từ tệp cấu hình /levels/Level{level}.txt
-        try {
+
+		try {
 			URL absPath = FileLevelLoader.class.getResource("/levels/Level" + level  + ".txt");
 
             BufferedReader in = new BufferedReader(new InputStreamReader(absPath.openStream()));
@@ -69,8 +72,7 @@ public class FileLevelLoader extends LevelLoader {
         }
 
 		// TODO: cập nhật các giá trị đọc được vào _width, _height, _level, _map
-		Audio audio = new Audio("bomberman_orchestra.wav");
-		audio.start();
+
 	}
 
 	@Override

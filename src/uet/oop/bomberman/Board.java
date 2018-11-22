@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static uet.oop.bomberman.BombermanGame.game_over;
+import static uet.oop.bomberman.BombermanGame.theme;
+
 /**
  * Quản lý thao tác điều khiển, load level, render các màn hình của game
  */
@@ -43,6 +46,7 @@ public class Board implements IRender {
 		_screen = screen;
 		
 		loadLevel(1); //start in level 1
+		theme.start();
 	}
 	
 	@Override
@@ -84,6 +88,7 @@ public class Board implements IRender {
 	
 	public void nextLevel() {
 		loadLevel(_levelLoader.getLevel() + 1);
+		theme.resume();
 	}
 	
 	public void loadLevel(int level) {
@@ -94,15 +99,16 @@ public class Board implements IRender {
 		_characters.clear();
 		_bombs.clear();
 		_messages.clear();
-		
 		try {
 			_levelLoader = new FileLevelLoader(this, level);
+
 			_entities = new Entity[_levelLoader.getHeight() * _levelLoader.getWidth()];
 			
 			_levelLoader.createEntities();
 		} catch (LoadLevelException e) {
 			endGame();
 		}
+
 	}
 	
 	protected void detectEndGame() {
@@ -114,6 +120,8 @@ public class Board implements IRender {
 		_screenToShow = 1;
 		_game.resetScreenDelay();
 		_game.pause();
+		theme.stop();
+		game_over.start();
 	}
 	
 	public boolean detectNoEnemies() {

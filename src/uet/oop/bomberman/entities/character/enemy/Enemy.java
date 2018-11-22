@@ -1,5 +1,6 @@
 package uet.oop.bomberman.entities.character.enemy;
 
+import uet.oop.bomberman.Audio;
 import uet.oop.bomberman.Board;
 import uet.oop.bomberman.Game;
 import uet.oop.bomberman.entities.Entity;
@@ -14,7 +15,12 @@ import uet.oop.bomberman.level.Coordinates;
 
 import java.awt.*;
 
+import static uet.oop.bomberman.BombermanGame.game_over;
+import static uet.oop.bomberman.BombermanGame.theme;
+
 public abstract class Enemy extends Character {
+
+	Audio kill_enemy = new Audio("PLAYER_OUT.wav");
 
 	protected int _points;
 	
@@ -132,6 +138,7 @@ public abstract class Enemy extends Character {
 		// TODO: xử lý va chạm với Flame
 		if(e instanceof Flame) {
 			kill();
+			kill_enemy.start();
 			return false;
 		}
 

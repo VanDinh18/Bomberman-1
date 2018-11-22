@@ -13,8 +13,8 @@ import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.level.Coordinates;
 
+
 public class Bomb extends AnimatedEntitiy {
-	Audio audio = new Audio("bomb.wav");
 	protected double _timeToExplode = 120; //2 seconds
 	public int _timeAfter = 20;
 	
@@ -22,6 +22,8 @@ public class Bomb extends AnimatedEntitiy {
 	protected Flame[] _flames;
 	protected boolean _exploded = false;
 	protected boolean _allowedToPassThru = true;
+
+	Audio bomb = new Audio("bomb.wav");
 
 	public Bomb(int x, int y, Board board) {
 		_x = x;
@@ -35,15 +37,18 @@ public class Bomb extends AnimatedEntitiy {
 		if(_timeToExplode > 0) 
 			_timeToExplode--;
 		else {
-			if(!_exploded) 
+			if(!_exploded) {
 				explode();
+			}
 			else
 				updateFlames();
 			
 			if(_timeAfter > 0) 
 				_timeAfter--;
-			else
+			else {
 				remove();
+				bomb.stop();
+			}
 		}
 			
 		animate();
@@ -89,10 +94,10 @@ public class Bomb extends AnimatedEntitiy {
 
 		// TODO: tạo các Flame
 		_flames = new Flame[4];
-		for(int i=0;i<_flames.length;i++){
-			_flames[i] = new Flame((int) _x,(int) _y, i , Game.getBombRadius() ,_board );
+		for(int i=0;i<_flames.length;i++) {
+			_flames[i] = new Flame((int) _x, (int) _y, i, Game.getBombRadius(), _board);
 		}
-		audio.start();
+		bomb.start();
 	}
 	
 	public FlameSegment flameAt(int x, int y) {

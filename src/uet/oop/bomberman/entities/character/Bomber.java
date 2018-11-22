@@ -14,6 +14,9 @@ import uet.oop.bomberman.level.Coordinates;
 import java.util.Iterator;
 import java.util.List;
 
+import static uet.oop.bomberman.BombermanGame.game_over;
+import static uet.oop.bomberman.BombermanGame.theme;
+
 public class Bomber extends Character {
 
     private List<Bomb> _bombs;
@@ -49,11 +52,11 @@ public class Bomber extends Character {
 
         animate();
 
-//        calculateMove();
-//        detectPlaceBomb();
+        calculateMove();
+        detectPlaceBomb();
 
-        AIcalculateMove();
-        AIdetectPlaceBomb();
+//        AIcalculateMove();
+//        AIdetectPlaceBomb();
     }
 
     @Override

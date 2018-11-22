@@ -27,8 +27,6 @@ public class Audio extends Thread{
 
     public void run() {
 
-        //    while(true)
-        //    {
         File soundFile = new File(filename);
         if (!soundFile.exists()) {
             System.err.println("Wave file not found: " + filename);
@@ -87,6 +85,5 @@ public class Audio extends Thread{
             auline.drain();
             auline.close();
         }
-        //       }
     }
 }

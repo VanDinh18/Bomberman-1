@@ -16,8 +16,7 @@ public class BombItem extends Item {
 	public boolean collide(Entity e) {
 		// TODO: xử lý Bomber ăn Item
 		if( e instanceof Bomber){
-			Audio audio = new Audio("power_up.wav");
-			audio.start();
+			power_up.start();
 			if(this.isRemoved()) return true; // không bị x2 Power Up
 			remove();
 			Game.addBombRate(1);
