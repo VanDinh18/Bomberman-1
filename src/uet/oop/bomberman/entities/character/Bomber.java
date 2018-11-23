@@ -3,9 +3,11 @@ package uet.oop.bomberman.entities.character;
 import uet.oop.bomberman.Board;
 import uet.oop.bomberman.Game;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.LayeredEntity;
 import uet.oop.bomberman.entities.bomb.Bomb;
 import uet.oop.bomberman.entities.bomb.Flame;
 import uet.oop.bomberman.entities.character.enemy.Enemy;
+import uet.oop.bomberman.entities.tile.destroyable.Brick;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.input.Keyboard;
@@ -52,11 +54,11 @@ public class Bomber extends Character {
 
         animate();
 
-        calculateMove();
-        detectPlaceBomb();
+//        calculateMove();
+//        detectPlaceBomb();
 
-//        AIcalculateMove();
-//        AIdetectPlaceBomb();
+        AIcalculateMove();
+        AIdetectPlaceBomb();
     }
 
     @Override
@@ -79,45 +81,71 @@ public class Bomber extends Character {
         int x = Coordinates.pixelToTile(_x + _sprite.getSize()/2);
         int y = Coordinates.pixelToTile(_y - _sprite.getSize()/2 );
         if(!Game.getBoard().detectNoEnemies() && Game.getBombRate()>0 && _timeBetweenPutBombs < 0){
-            for(int i = 1 ; i < 3 ; i++){
-                Character character = Game.getBoard().getCharacterAtExcluding(this.getXTile()+i, this.getYTile(),this);
+            for(int i = 1 ; i < 2 + Game.getBombRadius() ; i++){
+                Character character = _board.getCharacterAtExcluding(this.getXTile()+i, this.getYTile(),this);
+                Entity a = _board.getEntityAt(this.getXTile()+1,this.getYTile());
                 if(character!=null) {
                     placeBomb(x, y);
                     Game.addBombRate(-1);
                     _timeBetweenPutBombs = 10;
                 }
+                else if(a instanceof LayeredEntity){
+                    if(((LayeredEntity) a).getTopEntity() instanceof Brick){
+                        placeBomb(x, y);
+                        Game.addBombRate(-1);
+                        _timeBetweenPutBombs = 10;
+                    }
+                }
             }
-            for(int i = 1 ; i < 3 ; i++){
-                Character character = Game.getBoard().getCharacterAtExcluding(this.getXTile()-i, this.getYTile(),this);
+            for(int i = 1 ; i < 2 + Game.getBombRadius() ; i++){
+                Character character = _board.getCharacterAtExcluding(this.getXTile()-i, this.getYTile(),this);
+                Entity a = _board.getEntityAt(this.getXTile()-1,this.getYTile());
                 if(character!=null) {
                     placeBomb(x, y);
                     Game.addBombRate(-1);
                     _timeBetweenPutBombs = 10;
                 }
+                else if(a instanceof LayeredEntity){
+                    if(((LayeredEntity) a).getTopEntity() instanceof Brick){
+                        placeBomb(x, y);
+                        Game.addBombRate(-1);
+                        _timeBetweenPutBombs = 10;
+                    }
+                }
             }
-            for(int i = 1 ; i < 3 ; i++){
-                Character character = Game.getBoard().getCharacterAtExcluding(this.getXTile(), this.getYTile()+i,this);
+            for(int i = 1 ; i < 2 + Game.getBombRadius() ; i++){
+                Character character = _board.getCharacterAtExcluding(this.getXTile(), this.getYTile()+i,this);
+                Entity a = _board.getEntityAt(this.getXTile(),this.getYTile()+1);
                 if(character!=null) {
                     placeBomb(x, y);
                     Game.addBombRate(-1);
                     _timeBetweenPutBombs = 10;
                 }
+                else if(a instanceof LayeredEntity){
+                    if(((LayeredEntity) a).getTopEntity() instanceof Brick){
+                        placeBomb(x, y);
+                        Game.addBombRate(-1);
+                        _timeBetweenPutBombs = 10;
+                    }
+                }
             }
-            for(int i = 1 ; i < 3 ; i++){
-                Character character = Game.getBoard().getCharacterAtExcluding(this.getXTile(), this.getYTile() -i,this);
+            for(int i = 1 ; i < 2 + Game.getBombRadius() ; i++){
+                Character character = _board.getCharacterAtExcluding(this.getXTile(), this.getYTile() -i,this);
+                Entity a = _board.getEntityAt(this.getXTile(),this.getYTile()-1);
                 if(character!=null) {
                     placeBomb(x, y);
                     Game.addBombRate(-1);
                     _timeBetweenPutBombs = 10;
                 }
+                else if(a instanceof LayeredEntity){
+                    if(((LayeredEntity) a).getTopEntity() instanceof Brick){
+                        placeBomb(x, y);
+                        Game.addBombRate(-1);
+                        _timeBetweenPutBombs = 10;
+                    }
+                }
             }
-        }
-        if(!_moving && Game.getBombRate()>0 && _timeBetweenPutBombs < 0){
 
-
-            placeBomb(x,y);
-            Game.addBombRate(-1);
-            _timeBetweenPutBombs = 10;
         }
     }
     /**
