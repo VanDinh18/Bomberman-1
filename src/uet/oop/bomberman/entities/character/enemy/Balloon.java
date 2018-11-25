@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities.character.enemy;
 
 import uet.oop.bomberman.Board;
 import uet.oop.bomberman.Game;
+import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.character.enemy.ai.AILow;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -31,4 +32,10 @@ public class Balloon extends Enemy {
 		}
 	}
 
+	@Override
+	public boolean collide(Entity e) {
+		if(e instanceof Enemy)
+			return false;
+		return false;
+	}
 }
