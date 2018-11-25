@@ -54,11 +54,11 @@ public class Bomber extends Character {
 
         animate();
 
-//        calculateMove();
-//        detectPlaceBomb();
+        calculateMove();
+        detectPlaceBomb();
 
-        AIcalculateMove();
-        AIdetectPlaceBomb();
+//        AIcalculateMove();
+//        AIdetectPlaceBomb();
     }
 
     @Override

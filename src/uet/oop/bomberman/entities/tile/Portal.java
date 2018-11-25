@@ -20,7 +20,6 @@ public class Portal extends Tile {
 
 		if(e instanceof Bomber ){
 			if(!Game.getBoard().detectNoEnemies()) {
-				theme.suspend();
 				complete.start();
 				Game.getBoard().nextLevel();
 				return true;

@@ -45,8 +45,7 @@ public class Board implements IRender {
 		_input = input;
 		_screen = screen;
 		
-		loadLevel(1); //start in level 1
-		theme.start();
+		loadLevel(1); //start in level
 	}
 	
 	@Override
@@ -88,7 +87,6 @@ public class Board implements IRender {
 	
 	public void nextLevel() {
 		loadLevel(_levelLoader.getLevel() + 1);
-		theme.resume();
 	}
 	
 	public void loadLevel(int level) {

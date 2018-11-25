@@ -70,7 +70,6 @@ public class FileLevelLoader extends LevelLoader {
         } catch (IOException e) {
             throw new LoadLevelException("Error loading level " + level, e);
         }
-
 		// TODO: cập nhật các giá trị đọc được vào _width, _height, _level, _map
 
 	}
