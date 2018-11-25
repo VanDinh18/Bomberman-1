@@ -36,11 +36,11 @@ public class Doll extends Enemy{
                 break;
         }
     }
-    @Override
-    public boolean collide(Entity e) {
-        if(e instanceof Enemy)
-            return false;
-        return false;
-    }
+//    @Override
+//    public boolean collide(Entity e) {
+//        if(e instanceof Enemy)
+//            return false;
+//        return false;
+//    }
 }
 

@@ -146,6 +146,8 @@ public abstract class Enemy extends Character {
 			((Bomber) e).kill();
 			return false;
 		}
+		if(e instanceof Enemy)
+			return false;
 
 		//return true;
 		// TODO: xử lý va chạm với Bomber
