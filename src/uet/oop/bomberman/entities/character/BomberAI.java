@@ -18,25 +18,41 @@ public class BomberAI {
                 Character character = Game.getBoard().getCharacterAtExcluding(bomber.getXTile() + i, bomber.getYTile(), bomber);
                 if (character != null) {
                     System.out.println("llllll");
-                    return 3;
+                    int a = random.nextInt(4);
+                    if (a==0) return 0;
+                    else if (a==1) return 4;
+                    else if (a==2) return 2;
+                    else if (a==3) return 3;
                 }
             }
             for (int i = 1; i < 3; i++) {
                 Character character = Game.getBoard().getCharacterAtExcluding(bomber.getXTile() - i, bomber.getYTile(), bomber);
                 if (character != null) {
-                    return 1;
+                    int a = random.nextInt(4);
+                    if (a==0) return 0;
+                    else if (a==1) return 1;
+                    else if (a==2) return 2;
+                    else if (a==3) return 4;
                 }
             }
             for (int i = 1; i < 3; i++) {
                 Character character = Game.getBoard().getCharacterAtExcluding(bomber.getXTile(), bomber.getYTile() + i, bomber);
                 if (character != null) {
-                    return 0;
+                    int a = random.nextInt(4);
+                    if (a==0) return 0;
+                    else if (a==1) return 1;
+                    else if (a==2) return 4;
+                    else if (a==3) return 3;
                 }
             }
             for (int i = 1; i < 3; i++) {
                 Character character = Game.getBoard().getCharacterAtExcluding(bomber.getXTile(), bomber.getYTile() - i, bomber);
                 if (character != null) {
-                    return 2;
+                    int a = random.nextInt(4);
+                    if (a==0) return 4;
+                    else if (a==1) return 1;
+                    else if (a==2) return 2;
+                    else if (a==3) return 3;
                 }
             }
         }
@@ -56,18 +72,19 @@ public class BomberAI {
                     else if(bomber.canMove(-5,0)) return 3;
                 }
                 else {
-                    if(bomber.getXTile() > (int) bombs.get(i).getX()){
-                        return 1;
-                    }
-                    if(bomber.getXTile() < (int) bombs.get(i).getX()){
-                        return 3;
-                    }
-                    if(bomber.getYTile() > (int) bombs.get(i).getY()){
-                        return 2;
-                    }
-                    if(bomber.getXTile() < (int) bombs.get(i).getX()){
-                        return 0;
-                    }
+//                    if(bomber.getXTile() > (int) bombs.get(i).getX()){
+//                        return 1;
+//                    }
+//                    if(bomber.getXTile() < (int) bombs.get(i).getX()){
+//                        return 3;
+//                    }
+//                    if(bomber.getYTile() > (int) bombs.get(i).getY()){
+//                        return 2;
+//                    }
+//                    if(bomber.getXTile() < (int) bombs.get(i).getX()){
+//                        return 0;
+//                    }
+                    return 4;
                 }
             }
         }
