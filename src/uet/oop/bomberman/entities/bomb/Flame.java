@@ -84,7 +84,6 @@ public class Flame extends Entity {
 			radius++;
 
 		}
-		System.out.println(radius);
 		return radius;
 	}
 	

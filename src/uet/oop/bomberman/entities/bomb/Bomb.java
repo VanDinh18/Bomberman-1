@@ -87,7 +87,6 @@ public class Bomb extends AnimatedEntitiy {
 		_exploded = true;
 		// TODO: xử lý khi Character đứng tại vị trí Bomb
 		Character character = _board.getCharacterAtExcluding((int)_x,(int)_y,null);
-		System.out.println(_x +  " :+: " +_y);
 		if(character!=null){
 			character.kill();
 		}
@@ -116,10 +115,17 @@ public class Bomb extends AnimatedEntitiy {
 	public boolean collide(Entity e) {
         // TODO: xử lý khi Bomber đi ra sau khi vừa đặt bom (_allowedToPassThru)
 		if( e instanceof Bomber){
+			System.out.println(e.getX() + "   " + e.getY());
+			System.out.println(getX() + "  +  " + getY());
 			double diffX = e.getX() - Coordinates.tileToPixel(getX());
 			double diffY = e.getY() - Coordinates.tileToPixel(getY());
-
-			if(!(diffX >= -10 && diffX < 16 && diffY >= 1 && diffY <= 28)) { // differences to see if the player has moved out of the bomb, tested values
+			/*
+			sang trái -10
+			sang phải 16
+			đi lên 1
+			đi xuống 28
+			 */
+			if(!(diffX >= -10 && diffX < 16 && diffY >= 1 && diffY <= 28)) {
 				_allowedToPassThru = false;
 			}
 			return _allowedToPassThru;

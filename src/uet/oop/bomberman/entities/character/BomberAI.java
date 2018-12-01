@@ -13,7 +13,7 @@ public class BomberAI {
         Random random = new Random();
         // TODO: cài đặt thuật toán tìm đường đi
         if(!Game.getBoard().detectNoEnemies()) {
-            for (int i = 1; i < 3; i++) {
+            for (int i = 1; i < 1+Game.getBombRadius(); i++) {
 
                 Character character = Game.getBoard().getCharacterAtExcluding(bomber.getXTile() + i, bomber.getYTile(), bomber);
                 if (character != null) {
@@ -25,7 +25,7 @@ public class BomberAI {
                     else if (a==3) return 3;
                 }
             }
-            for (int i = 1; i < 3; i++) {
+            for (int i = 1; i < 1+Game.getBombRadius(); i++) {
                 Character character = Game.getBoard().getCharacterAtExcluding(bomber.getXTile() - i, bomber.getYTile(), bomber);
                 if (character != null) {
                     int a = random.nextInt(4);
@@ -35,7 +35,7 @@ public class BomberAI {
                     else if (a==3) return 4;
                 }
             }
-            for (int i = 1; i < 3; i++) {
+            for (int i = 1; i < 1+Game.getBombRadius(); i++) {
                 Character character = Game.getBoard().getCharacterAtExcluding(bomber.getXTile(), bomber.getYTile() + i, bomber);
                 if (character != null) {
                     int a = random.nextInt(4);
@@ -45,7 +45,7 @@ public class BomberAI {
                     else if (a==3) return 3;
                 }
             }
-            for (int i = 1; i < 3; i++) {
+            for (int i = 1; i < 1+Game.getBombRadius(); i++) {
                 Character character = Game.getBoard().getCharacterAtExcluding(bomber.getXTile(), bomber.getYTile() - i, bomber);
                 if (character != null) {
                     int a = random.nextInt(4);
@@ -72,19 +72,18 @@ public class BomberAI {
                     else if(bomber.canMove(-5,0)) return 3;
                 }
                 else {
-//                    if(bomber.getXTile() > (int) bombs.get(i).getX()){
-//                        return 1;
-//                    }
-//                    if(bomber.getXTile() < (int) bombs.get(i).getX()){
-//                        return 3;
-//                    }
-//                    if(bomber.getYTile() > (int) bombs.get(i).getY()){
-//                        return 2;
-//                    }
-//                    if(bomber.getXTile() < (int) bombs.get(i).getX()){
-//                        return 0;
-//                    }
-                    return 4;
+                    if(bomber.getXTile() > (int) bombs.get(i).getX()){
+                        return 1;
+                    }
+                    if(bomber.getXTile() < (int) bombs.get(i).getX()){
+                        return 3;
+                    }
+                    if(bomber.getYTile() > (int) bombs.get(i).getY()){
+                        return 2;
+                    }
+                    if(bomber.getXTile() < (int) bombs.get(i).getX()) {
+                        return 0;
+                    }
                 }
             }
         }

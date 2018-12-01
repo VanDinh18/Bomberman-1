@@ -245,12 +245,15 @@ public class Bomber extends Character {
     @Override
     public boolean canMove(double x, double y) {
         // TODO: kiểm tra có đối tượng tại vị trí chuẩn bị di chuyển đến và có thể di chuyển tới đó hay không
-//        System.out.println(_y + "::" + _x);
-//        System.out.println(y + "::" + x);
         for(int c = 0; c < 4 ; c++){
-            double xt = ((_x + x) + c % 2 * 11) / Game.TILES_SIZE; //divide with tiles size to pass to tile coordinate
-            double yt = ((_y + y) + c / 2 * 12 - 13) / Game.TILES_SIZE; //these values are the best from multiple tests
-
+            double xt = ((_x + x) + c % 2 * 11) / Game.TILES_SIZE;
+            double yt = ((_y + y) + c / 2 * 12 - 13) / Game.TILES_SIZE;
+            /*
+            x  ::  y-13
+            x+11  ::  y-13
+            x  ::  y-1
+            x+11  ::  y-1
+             */
 
             Entity a = _board.getEntity(xt,yt,this);
             if(!a.collide(this))
@@ -263,16 +266,10 @@ public class Bomber extends Character {
     public void move(double xa, double ya) {
 
         // TODO: sử dụng canMove() để kiểm tra xem có thể di chuyển tới điểm đã tính toán hay không và thực hiện thay đổi tọa độ _x, _y
-        if(canMove(xa, ya)) { //separate the moves for the player can slide when is colliding
+        if(canMove(xa, ya)) {
             _y += ya;
             _x += xa;
         }
-
-//        if(canMove(xa, 0)) {
-//            _x += xa;
-//        }
-
-
         // TODO: nhớ cập nhật giá trị _direction sau khi di chuyển
         if(xa > 0) _direction = 1;
         if(xa < 0) _direction = 3;
