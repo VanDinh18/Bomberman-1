@@ -166,6 +166,17 @@ public class FileLevelLoader extends LevelLoader {
 								)
 						);
 						break;
+					case '6' :
+						int xE6= x, yE6 = y;
+						_board.addCharacter( new Ovape(Coordinates.tileToPixel(xE6), Coordinates.tileToPixel(yE6) + Game.TILES_SIZE, _board));
+						_board.addEntity(xE6 + yE6 * _width, new Grass(xE6, yE6, Sprite.grass));
+						break;
+					case '7' :
+						int xE7= x, yE7 = y;
+						_board.addCharacter( new Pass(Coordinates.tileToPixel(xE7), Coordinates.tileToPixel(yE7) + Game.TILES_SIZE, _board));
+						_board.addEntity(xE7 + yE7 * _width, new Grass(xE7, yE7, Sprite.grass));
+						break;
+
 						default :
 							int xA = x, yA = y;
 							_board.addEntity(xA + yA * _width,
